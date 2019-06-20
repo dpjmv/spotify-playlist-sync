@@ -16,8 +16,8 @@ in order for them to suit the name of your playlists. You can find these
 at the top of the main() function.
 
 Flow:
-If any music that is in a specific playlist is aslo in origin. It
-shall be copied into mega and removed from origin.
+If any music that is in a specific playlist is aslo in temp. It
+will be copied into mega and removed from temp.
 
 Why:
 Because I add the new musics I find into a temporary playlist, and if
