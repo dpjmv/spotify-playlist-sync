@@ -100,22 +100,22 @@ def main():
     the SPFY_PL_SYNC_USERNAME environment variable.
 
     You will also need to change the name of the three variables:
-        - origin_name (string)
+        - temp_name (string)
         - specific_names (list of strings)
         - mega_name (string)
     in order for them to suit the name of your playlists. You can find these
     at the top of the main() function.
 
     Flow:
-    If any music that is in a specific playlist is aslo in origin. It
-    shall be copied into mega and removed from origin.
+    If any music that is in a specific playlist is aslo in temp. It
+    shall be copied into mega and removed from temp.
 
     Why:
     Because I add the new musics I find into a temporary playlist, and if
     I am not borded of hearing them after three times, I add them to a specific
     playlist based on the type of music and a global playlist joining them all.
     """
-    origin_name = "Purgatoire"
+    temp_name = "Purgatoire"
     specific_names = ["Rock", "Classique", "Rap",
         "Chiant", "Poubelle", "Trad"]
     mega_name = "MEGA PLAYLIST"
@@ -123,10 +123,10 @@ def main():
     # Retrieve username
     username = os.getenv("SPFY_PL_SYNC_USERNAME")
 
-    if username:
-        pass
-    elif len(sys.argv) > 1:
+    if len(sys.argv) > 1:
         username = sys.argv[1]
+    elif username:
+        pass
     else:
         print(f"Usage: {sys.argv[0]} username")
         sys.exit()
@@ -140,15 +140,15 @@ def main():
     # Pick out the ones we need
     specific_pls = []
     for playlist in playlists:
-        if playlist["name"] == origin_name:
-            origin_pl = playlist
+        if playlist["name"] == temp_name:
+            temp_pl = playlist
         elif playlist["name"] == mega_name:
             mega_pl = playlist
         elif playlist["name"] in specific_names:
             specific_pls.append(playlist)
     
     # Get tracks
-    origin_tracks = getTrackIds(sp, username, origin_pl)
+    temp_tracks = getTrackIds(sp, username, temp_pl)
 
     specific_tracks = []
     for pl in specific_pls:
@@ -156,16 +156,16 @@ def main():
             specific_tracks.append(track)
     
     # Pick out the ones recently added to specific playlists
-    new_tracks = list(set(origin_tracks).intersection(specific_tracks))
+    new_tracks = list(set(temp_tracks).intersection(specific_tracks))
 
     if new_tracks:
         # Add them to mega
         print(new_tracks)
         sp.user_playlist_add_tracks(username, mega_pl["id"], new_tracks)
 
-        # Remove them from origin
+        # Remove them from temp
         sp.user_playlist_remove_all_occurrences_of_tracks(username,
-            origin_pl["id"], new_tracks)
+            temp_pl["id"], new_tracks)
 
         print(f"Handled {len(new_tracks)} new tracks.")
     else:

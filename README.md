@@ -8,7 +8,7 @@ the SPFY_PL_SYNC_USERNAME environment variable.
 
 You will also need to change the name of the three variables:
 
-- origin_name (string)
+- temp_name (string)
 - specific_names (list of string)
 - mega_name (string)
 
