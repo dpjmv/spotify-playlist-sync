@@ -8,9 +8,9 @@ the SPFY_PL_SYNC_USERNAME environment variable.
 
 You will also need to change the name of the three variables:
 
-- origin_name
-- specific_names
-- mega_name
+- origin_name (string)
+- specific_names (list of string)
+- mega_name (string)
 
 in order for them to suit the name of your playlists. You can find these
 at the top of the main() function.
