@@ -1,4 +1,4 @@
-# Spotify Playslist Sync
+# Spotify Playlist Sync
 
 Syncing my spotify playlists
 
@@ -23,3 +23,8 @@ Why:
 Because I add the new musics I find into a temporary playlist, and if
 I am not borded of hearing them after three times, I add them to a specific
 playlist based on the type of music and a global playlist joining them all.
+
+Note:
+You will need to register the app to get an api key for Spotify. When
+first using the script, you will be prompted to grant access to the app
+in your browser.
