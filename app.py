@@ -31,7 +31,7 @@ def getPlaylists(sp, username, offset=0):
     Retrieves all the playlists a user has
 
     :param sp:
-        A spotipy.Spotify object to be used for the request
+        A spotipy.Spotify object to be used for the request.
 
     :param username:
         The username of the user who's playlists you want the retrieve.
@@ -40,7 +40,7 @@ def getPlaylists(sp, username, offset=0):
         Do not worry about this parameter, it is used for recursion.
     
     :returns:
-        A dict containing all of the user's playlists
+        A dict containing all of the user's playlists.
     """
     limit = 50
 
@@ -61,19 +61,19 @@ def getTrackIds(sp, username, playlist, offset=0):
     Returns the ids of the tracks contained in a playlist
 
     :param sp:
-        A spotipy.Spotify object to be used for the request
+        A spotipy.Spotify object to be used for the request.
 
     :param username:
         The username of the user who's playlists you want the retrieve.
 
     :param playlist:
-        Name of the playlist from wich the tracks are retrieved
+        Name of the playlist from wich the tracks are retrieved.
 
     :param offset:
         Do not worry about this parameter, it is used for recursion.
     
     :returns:
-        A list containing all the ids of the tracks that are in the playlist
+        A list containing all the ids of the tracks that are in the playlist.
     """
     limit = 100
     fields = "items(track(id)), total"
@@ -99,9 +99,21 @@ def main():
     This can be achieved by providing the username as an arguemnt or through
     the SPFY_PL_SYNC_USERNAME environment variable.
 
+    You will also need to change the name of the three variables:
+        - origin_name
+        - specific_names
+        - mega_name
+    in order for them to suit the name of your playlists. You can find these
+    at the top of the main() function.
+
     Flow:
-    If any music that is in a playlist from destinations is aslo in origin. It
+    If any music that is in a specific playlist is aslo in origin. It
     shall be copied into mega and removed from origin.
+
+    Why:
+    Because I add the new musics I find into a temporary playlist, and if
+    I am not borded of hearing them after three times, I add them to a specific
+    playlist based on the type of music and a global playlist joining them all.
     """
     origin_name = "Purgatoire"
     specific_names = ["Rock", "Classique", "Rap",
