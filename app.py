@@ -116,8 +116,9 @@ def main():
     playlist based on the type of music and a global playlist joining them all.
 
     Note:
-    You will need to register the app to get an api key for Spotify. When
-    first using the script, you will be prompted to grant access to the app
+    You will need to register the app to get an api key for Spotify. 
+    You will have to provide the infos required in .env.sample.
+    When first using the script, you will be prompted to grant access to the app
     in your browser.
     """
     temp_name = "Purgatoire"
