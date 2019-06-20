@@ -119,7 +119,8 @@ def main():
     You will need to register the app to get an api key for Spotify. 
     You will have to provide the infos required in .env.sample.
     When first using the script, you will be prompted to grant access to the app
-    in your browser.
+    in your browser. Then you will have to copy the url you were redirected to,
+    to your terminal.
     """
     temp_name = "Purgatoire"
     specific_names = ["Rock", "Classique", "Rap",
