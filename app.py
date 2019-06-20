@@ -167,7 +167,6 @@ def main():
 
     if new_tracks:
         # Add them to mega
-        print(new_tracks)
         sp.user_playlist_add_tracks(username, mega_pl["id"], new_tracks)
 
         # Remove them from temp
