@@ -123,9 +123,8 @@ def main():
     to your terminal.
     """
     temp_name = "Purgatoire"
-    specific_names = ["Rock", "Classique", "Rap",
-        "Chiant", "Poubelle", "Trad"]
-    mega_name = "MEGA PLAYLIST"
+    specific_names = ["Rock", "Rap"]
+    mega_name = "Ω"
 
     # Retrieve username
     username = os.getenv("SPFY_PL_SYNC_USERNAME")
