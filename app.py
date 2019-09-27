@@ -156,13 +156,13 @@ def main():
     # Get tracks
     temp_tracks = getTrackIds(sp, username, temp_pl)
 
-    specific_tracks = []
+    specifics_tracks = []
     for pl in specific_pls:
         for track in getTrackIds(sp, username, pl):
-            specific_tracks.append(track)
+            specifics_tracks.append(track)
     
     # Pick out the ones recently added to specific playlists
-    new_tracks = list(set(temp_tracks).intersection(specific_tracks))
+    new_tracks = list(set(temp_tracks).intersection(specifics_tracks))
 
     if new_tracks:
         # Add them to mega
@@ -174,7 +174,26 @@ def main():
 
         print(f"Handled {len(new_tracks)} new tracks.")
     else:
-        print("Nothing done.")
+        print("No new tracks.")
+
+    # Remove tracks deleted from one playlist from all playlists
+    mega_tracks = getTrackIds(sp, username, mega_pl)
+    deleted_tracks = []
+    for pl in specific_pls:
+        specific_tracks = getTrackIds(sp, username, pl)
+        
+        specific_diff_mega = list(set(specific_tracks) - set(mega_tracks))
+        sp.user_playlist_remove_all_occurrences_of_tracks(username, pl["id"], specific_diff_mega)
+        deleted_tracks += specific_diff_mega
+
+    mega_diff_specifics = list(set(mega_tracks) - set(specifics_tracks))
+    sp.user_playlist_remove_all_occurrences_of_tracks(username, mega_pl["id"], mega_diff_specifics)
+    deleted_tracks += mega_diff_specifics
+
+    if deleted_tracks:
+        print(f"Deleted {len(deleted_tracks)} tracks.")
+    else:
+        print(f"No tracks to delete.")
 
 
 if __name__ == "__main__":
