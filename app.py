@@ -125,6 +125,7 @@ def main():
     temp_name = "Purgatoire"
     specific_names = ["Rock", "Rap"]
     mega_name = "Ω"
+    trash_name = ".Trash-1000"
 
     # Retrieve username
     username = os.getenv("SPFY_PL_SYNC_USERNAME")
@@ -145,13 +146,21 @@ def main():
 
     # Pick out the ones we need
     specific_pls = []
+    all_pls = []
     for playlist in playlists:
         if playlist["name"] == temp_name:
             temp_pl = playlist
+            all_pls.append(playlist)
         elif playlist["name"] == mega_name:
             mega_pl = playlist
+            all_pls.append(playlist)
         elif playlist["name"] in specific_names:
             specific_pls.append(playlist)
+        elif playlist["name"] == trash_name:
+            trash_pl = playlist
+        else:
+            continue
+        all_pls.append(playlist)
     
     # Get tracks
     temp_tracks = getTrackIds(sp, username, temp_pl)
@@ -172,7 +181,7 @@ def main():
         sp.user_playlist_remove_all_occurrences_of_tracks(username,
             temp_pl["id"], new_tracks)
 
-        print(f"Handled {len(new_tracks)} new tracks.")
+        print(f"Handled {len(new_tracks)} new track(s).")
     else:
         print("No new tracks.")
 
@@ -190,8 +199,14 @@ def main():
     sp.user_playlist_remove_all_occurrences_of_tracks(username, mega_pl["id"], mega_diff_specifics)
     deleted_tracks += mega_diff_specifics
 
+    # Remove tracks that were put in the trash
+    trash_tracks = getTrackIds(sp, username, trash_pl)
+    deleted_tracks += trash_tracks
+    for pl in all_pls:
+        sp.user_playlist_remove_all_occurrences_of_tracks(username, pl["id"], deleted_tracks)
+
     if deleted_tracks:
-        print(f"Deleted {len(deleted_tracks)} tracks.")
+        print(f"Deleted {len(deleted_tracks)} track(s).")
     else:
         print(f"No tracks to delete.")
 
